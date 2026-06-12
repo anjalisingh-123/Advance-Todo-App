@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+:root {
+  /* Light Theme Variables */
+  --bg-gradient: linear-gradient(135deg, #3f60cb, #f8fafc);
+  --card-bg: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --bg-input: #f1f3f6;
+  --bg-navbar: rgba(255, 255, 255, 0.75);
+  --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  
+  --item-hover-bg: #f8fafc;
+  --item-hover-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.04);
+  --item-hover-border: #cbd5e1;
+  
+  --accent-color: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-light: rgba(37, 99, 235, 0.08);
+  --accent-glow: rgba(37, 99, 235, 0.15);
+}
+
+.dark-theme {
+  /* Dark Theme Variables */
+  --bg-gradient: linear-gradient(135deg, #090d16, #1e293b);
+  --card-bg: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --bg-input: #0f172a;
+  --bg-navbar: rgba(30, 41, 59, 0.75);
+  --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  
+  --item-hover-bg: #111827;
+  --item-hover-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  --item-hover-border: #475569;
+  
+  --accent-color: #3b82f6;
+  --accent-hover: #60a5fa;
+  --accent-light: rgba(59, 130, 246, 0.15);
+  --accent-glow: rgba(59, 130, 246, 0.25);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+}

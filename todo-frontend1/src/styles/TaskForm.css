@@ -1,0 +1,105 @@
+.taskForm-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.taskForm-inputs-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.taskInput,
+.taskSelect,
+.taskDate {
+  padding: 12px 14px;
+  border: 2px solid transparent;
+  outline: none;
+  border-radius: 10px;
+  background: var(--bg-input);
+  font-size: 15px;
+  color: var(--text-main);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+}
+
+.taskInput {
+  flex: 2;
+  min-width: 0;
+}
+
+.taskSelect {
+  flex: 1;
+  cursor: pointer;
+  background-color: var(--bg-input);
+}
+
+.taskDate {
+  flex: 1.1;
+  cursor: pointer;
+}
+
+.taskInput::placeholder {
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+.taskInput:focus,
+.taskSelect:focus,
+.taskDate:focus {
+  border-color: var(--accent-color);
+  background: var(--card-bg);
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+.addBtn {
+  border: none;
+  cursor: pointer;
+  padding: 14px 22px;
+  border-radius: 10px;
+  background: var(--accent-color);
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.25s ease;
+  width: 100%; /* Spans full width below input row */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px var(--accent-glow);
+  background: var(--accent-hover);
+}
+
+.addBtn:active {
+  transform: translateY(0);
+}
+
+.addBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  background: var(--accent-color) !important;
+}
+
+
+@media (max-width: 680px) {
+  .taskForm-inputs-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .taskInput,
+  .taskSelect,
+  .taskDate {
+    width: 100%;
+    flex: none;
+  }
+}
