@@ -87,7 +87,7 @@ Ensure you have [Node.js](https://nodejs.org) and [MongoDB](https://www.mongodb.
 ## 🚀 Deployment Guide
 
 ### Deploying the Backend on Railway
-1. Sign up on [Railway.app](https://railway.app).
+1. Sign up on [railway.app](https://railway.app).
 2. Provision a **MongoDB** database instance.
 3. Import your GitHub repository, selecting `todo-backend` as the **Root Directory**.
 4. Add the following variables under the **Variables** tab:
