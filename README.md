@@ -15,15 +15,14 @@ TODOAPP/
 │   ├── package.json              # Backend dependencies & npm scripts
 │   └── .env                      # Connection variables (local only)
 │
-├── todo-frontend1/
-│   └── todo-App/                 # React + Vite frontend application
-│       ├── src/
-│       │   ├── components/       # Reusable components (TaskCard, Navbar, SearchBar, Toast)
-│       │   ├── styles/           # Styling sheets (scoped CSS variables)
-│       │   ├── App.jsx           # App state router
-│       │   └── main.jsx          # React app entry
-│       ├── vercel.json           # Vercel SPA routing redirects
-│       └── package.json          # Frontend dependencies & npm scripts
+├── todo-frontend1/               # React + Vite frontend application
+│   ├── src/
+│   │   ├── components/           # Reusable components (TaskCard, Navbar, SearchBar, Toast)
+│   │   ├── styles/               # Styling sheets (scoped CSS variables)
+│   │   ├── App.jsx               # App state router
+│   │   └── main.jsx              # React app entry
+│   ├── vercel.json               # Vercel SPA routing redirects
+│   └── package.json              # Frontend dependencies & npm scripts
 │
 ├── .gitignore                    # Global gitignore configuration
 └── README.md                     # Project documentation
@@ -70,7 +69,7 @@ Ensure you have [Node.js](https://nodejs.org) and [MongoDB](https://www.mongodb.
 ### 2. Set Up the Frontend App
 1. Open a new terminal window and navigate to the React app folder:
    ```bash
-   cd todo-frontend1/todo-App
+   cd todo-frontend1
    ```
 2. Install dependencies:
    ```bash
@@ -86,19 +85,22 @@ Ensure you have [Node.js](https://nodejs.org) and [MongoDB](https://www.mongodb.
 
 ## 🚀 Deployment Guide
 
-### Deploying the Backend on Railway
-1. Sign up on [railway.app](https://railway.app).
-2. Provision a **MongoDB** database instance.
-3. Import your GitHub repository, selecting `todo-backend` as the **Root Directory**.
-4. Add the following variables under the **Variables** tab:
-   - `MONGO_URI`: Connect to your provisioned database (use `${{MongoDB.MONGODB_URL}}` or your Atlas connection string).
-   - `PORT`: `5000` (Railway binds port dynamically, but keep this as default).
-5. Deploy and copy the public URL generated (e.g. `https://your-backend.up.railway.app`).
+### Deploying the Backend on Render
+1. Sign up on [Render.com](https://render.com).
+2. Click **New** -> **Web Service**.
+3. Connect your GitHub repository.
+4. Configure the Web Service settings:
+   - **Root Directory**: `todo-backend`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+5. Under the **Environment Variables** tab, add your database connection string:
+   - `MONGO_URI`: Your MongoDB Atlas connection string.
+6. Click **Create Web Service** and copy the public URL generated once deployed (e.g. `https://your-backend.onrender.com`).
 
 ### Deploying the Frontend on Vercel
 1. Sign up on [Vercel.com](https://vercel.com).
-2. Import your GitHub repository, selecting `todo-frontend1/todo-App` as the **Root Directory**.
+2. Import your GitHub repository, selecting `todo-frontend1` as the **Root Directory**.
 3. Under the **Environment Variables** tab, add the backend URL:
    - Key: `VITE_API_URL`
-   - Value: `https://your-backend.up.railway.app`
+   - Value: `https://your-backend.onrender.com`
 4. Click **Deploy**. Vercel will build and host your application.

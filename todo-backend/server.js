@@ -13,7 +13,6 @@ app.use("/api/tasks", taskRoutes);
 app.get("/",(req,res)=>{
   res.send("Todo API Running")
 });
-const PORT = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGO_URI)
 .then(() => {
@@ -22,6 +21,7 @@ mongoose.connect(process.env.MONGO_URI)
 .catch((err) => {
     console.log(err);
 });
+const PORT = process.env.PORT || 5000;
 app.listen(PORT,()=>{
   console.log(`Server running on port ${PORT}`);
 });
