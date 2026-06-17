@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { FaCheckDouble, FaSun, FaMoon } from 'react-icons/fa';
 import '../styles/Navbar.css';
 
-const Navbar = ({ isDarkMode, onToggleTheme, addToast }) => {
+const Navbar = ({ isDarkMode, onToggleTheme, addToast, user, onLogout }) => {
   const handleComingSoon = (e, featureName) => {
     e.preventDefault();
     if (addToast) {
@@ -24,19 +24,28 @@ const Navbar = ({ isDarkMode, onToggleTheme, addToast }) => {
           <span className="navbar-logo-text">TaskFlow</span>
         </div>
         <div className="navbar-right">
-          <ul className="navbar-links">
-            <li><a href="#home" className="navbar-link active">Home</a></li>
-            <li><a href="#tasks" className="navbar-link">Tasks</a></li>
-            <li>
-              <a 
-                href="#analytics" 
-                className="navbar-link"
-                onClick={(e) => handleComingSoon(e, 'Analytics')}
-              >
-                Analytics
-              </a>
-            </li>
-          </ul>
+          {user && (
+            <>
+              <ul className="navbar-links">
+                <li><a href="/" className="navbar-link active">Tasks</a></li>
+                <li>
+                  <a 
+                    href="#analytics" 
+                    className="navbar-link"
+                    onClick={(e) => handleComingSoon(e, 'Analytics')}
+                  >
+                    Analytics
+                  </a>
+                </li>
+              </ul>
+              <span className="navbar-user">
+                👤 {user.username}
+              </span>
+              <button className="logout-btn" onClick={onLogout}>
+                Logout
+              </button>
+            </>
+          )}
           <button 
             className="theme-toggle-btn"
             onClick={onToggleTheme}

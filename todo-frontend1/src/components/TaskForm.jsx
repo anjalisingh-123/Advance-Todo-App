@@ -1,8 +1,6 @@
 import React, { useState, memo } from 'react'
-import axios from 'axios';
+import api from '../services/api';
 import "../styles/TaskForm.css";
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const TaskForm = ({ onTaskAdded }) => {
   const [title, setTitle] = useState("");
@@ -14,7 +12,7 @@ const TaskForm = ({ onTaskAdded }) => {
     try {
       // Serialize priority and due date into title for backend compatibility
       const rawTitle = `${title.trim()} #${priority.toLowerCase()}${dueDate ? ` due:${dueDate}` : ''}`;
-      await axios.post(`${API_BASE_URL}/api/tasks`, { title: rawTitle });
+      await api.post("/tasks", { title: rawTitle });
       
       // Reset form fields
       setTitle('');
