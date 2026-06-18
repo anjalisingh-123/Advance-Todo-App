@@ -4,7 +4,7 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
 // JWT Secret fallback with warning
-const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key";
+const JWT_SECRET = process.env.JWT_SECRET;
 if (!process.env.JWT_SECRET) {
   console.warn("WARNING: JWT_SECRET environment variable is not set. Using insecure default_secret_key.");
 }
@@ -83,7 +83,7 @@ router.post("/login", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      sameSite: "none",
       maxAge: 3600000, // 1 hour
     });
 

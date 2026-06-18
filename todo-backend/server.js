@@ -10,9 +10,6 @@ const taskRoutes = require("./routes/taskRoutes");
 const app = express();
 
 const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:5174",
-  "http://localhost:3000",
   "https://advance-todo-app-sigma.vercel.app",
   "http://advance-todo-app-sigma.vercel.app",
   process.env.FRONTEND_URL
@@ -41,7 +38,6 @@ app.get("/", (req, res) => {
 });
 
 // Database Connection
-const mongoURI = process.env.MONGO_URI || "mongodb+srv://alphax:Mohitraj%401234@free-cluster.jdzexs7.mongodb.net/toDoApp?retryWrites=true&w=majority&appName=free-cluster";
 mongoose
   .connect(mongoURI)
   .then(() => {
