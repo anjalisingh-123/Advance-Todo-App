@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const auth = require("../middleware/authMiddleware");
 
 // JWT Secret fallback with warning
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -82,12 +83,12 @@ router.post("/login", async (req, res) => {
     // Set cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       sameSite: "none",
       maxAge: 3600000, // 1 hour
     });
 
-    res.status(200).json({ message: "Login successful", token });
+    res.status(200).json({ message: "Login successful"});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -102,7 +103,6 @@ router.post("/logout", (req, res) => {
 
 // @route   GET /api/auth/me
 // @desc    Get current authenticated user info
-const auth = require("../middleware/authMiddleware");
 router.get("/me", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");

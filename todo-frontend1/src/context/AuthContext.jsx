@@ -10,10 +10,16 @@ export const AuthProvider = ({ children }) => {
   // Check auth status on app start/refresh
   const checkAuthStatus = useCallback(async () => {
     try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      }
       const response = await api.get("/auth/me");
       setUser(response.data);
     } catch (error) {
       setUser(null);
+      localStorage.removeItem("token");
+      delete api.defaults.headers.common["Authorization"];
     } finally {
       setLoading(false);
     }
@@ -27,6 +33,12 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const response = await api.post("/auth/login", { email, password });
+      const token = response.data.token;
+      
+      if (token) {
+        localStorage.setItem("token", token);
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      }
       
       // Fetch full user details after successful login
       const meResponse = await api.get("/auth/me");
@@ -56,6 +68,8 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("Logout error on backend:", error);
     } finally {
+      localStorage.removeItem("token");
+      delete api.defaults.headers.common["Authorization"];
       setUser(null);
     }
   };
