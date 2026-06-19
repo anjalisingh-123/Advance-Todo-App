@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
 import api from "../services/api";
@@ -44,6 +44,7 @@ const Dashboard = ({ isDarkMode, onToggleTheme }) => {
   }, [addToast]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchTasks(true); // Initial load with loader
   }, [fetchTasks]);
 
@@ -125,7 +126,7 @@ const Dashboard = ({ isDarkMode, onToggleTheme }) => {
       >
         <div className="welcome-banner" style={{ marginBottom: "1.5rem", textAlign: "left" }}>
           <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: "var(--text-color)" }}>
-            Welcome back, {user?.username}! 👋
+            Welcome back, {user?.username}!
           </h2>
           <p style={{ fontSize: "0.9rem", color: "var(--secondary-text)" }}>
             Here is your productivity outline for today.

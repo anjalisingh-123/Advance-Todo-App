@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaCheckCircle, FaExclamationCircle, FaTimes } from 'react-icons/fa';
 import '../styles/Toast.css';

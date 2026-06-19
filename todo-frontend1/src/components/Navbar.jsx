@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { motion } from 'framer-motion';
-import { FaCheckDouble, FaSun, FaMoon } from 'react-icons/fa';
+import { FaCheckDouble, FaSun, FaMoon, FaUserCircle } from 'react-icons/fa';
 import '../styles/Navbar.css';
 
 const Navbar = ({ isDarkMode, onToggleTheme, addToast, user, onLogout }) => {
@@ -39,7 +39,7 @@ const Navbar = ({ isDarkMode, onToggleTheme, addToast, user, onLogout }) => {
                 </li>
               </ul>
               <span className="navbar-user">
-                👤 {user.username}
+                <FaUserCircle aria-hidden="true" /> {user.username}
               </span>
               <button className="logout-btn" onClick={onLogout}>
                 Logout

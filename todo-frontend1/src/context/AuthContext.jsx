@@ -1,4 +1,5 @@
-import React, { createContext, useState, useEffect, useContext, useCallback } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useState, useEffect, useContext, useCallback } from "react";
 import api from "../services/api";
 
 const AuthContext = createContext(null);
@@ -16,7 +17,7 @@ export const AuthProvider = ({ children }) => {
       }
       const response = await api.get("/auth/me");
       setUser(response.data);
-    } catch (error) {
+    } catch {
       setUser(null);
       localStorage.removeItem("token");
       delete api.defaults.headers.common["Authorization"];
@@ -26,6 +27,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     checkAuthStatus();
   }, [checkAuthStatus]);
 

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaCalendarAlt, FaTrash, FaPencilAlt, FaCheck, FaTimes } from 'react-icons/fa';
 import '../styles/TaskCard.css';
 
 const parseTaskTitle = (rawTitle, createdAt) => {
   let title = rawTitle || "";
   let priority = "Medium";
-  let dueDate = null;
+  let dueDate;
 
   // 1. Parse priority: #high, #medium, #low (case-insensitive)
   const priorityRegex = /#\b(high|medium|low)\b/i;
@@ -100,9 +100,9 @@ const TaskCard = ({ task, onToggle, onDelete, onUpdate }) => {
   // Get Priority Badge Emoji Dot
   const getPriorityBadge = (p) => {
     switch (p.toLowerCase()) {
-      case 'high': return '🔴 High';
-      case 'low': return '🟢 Low';
-      default: return '🟡 Medium';
+      case 'high': return 'High';
+      case 'low': return 'Low';
+      default: return 'Medium';
     }
   };
 
@@ -137,9 +137,9 @@ const TaskCard = ({ task, onToggle, onDelete, onUpdate }) => {
                 value={editPriority}
                 onChange={(e) => setEditPriority(e.target.value)}
               >
-                <option value="Low">🟢 Low</option>
-                <option value="Medium">🟡 Medium</option>
-                <option value="High">🔴 High</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
               </select>
               
               <input

@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react'
+import { useState, memo } from 'react'
 import api from '../services/api';
 import "../styles/TaskForm.css";
 
@@ -50,9 +50,9 @@ const TaskForm = ({ onTaskAdded }) => {
           value={priority}
           onChange={(e) => setPriority(e.target.value)}
         >
-          <option value="Low">🟢 Low</option>
-          <option value="Medium">🟡 Medium</option>
-          <option value="High">🔴 High</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
         </select>
         
         <input 
@@ -75,4 +75,3 @@ const TaskForm = ({ onTaskAdded }) => {
 }
 
 export default memo(TaskForm);
-

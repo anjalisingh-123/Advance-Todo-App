@@ -5,10 +5,17 @@ const jwt = require("jsonwebtoken");
 const auth = require("../middleware/authMiddleware");
 
 // JWT Secret fallback with warning
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key";
 if (!process.env.JWT_SECRET) {
   console.warn("WARNING: JWT_SECRET environment variable is not set. Using insecure default_secret_key.");
 }
+
+const cookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  maxAge: 3600000, // 1 hour
+};
 
 // @route   POST /api/auth/register
 // @desc    Register a new user
@@ -81,14 +88,9 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
 
     // Set cookie
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      maxAge: 3600000, // 1 hour
-    });
+    res.cookie("token", token, cookieOptions);
 
-    res.status(200).json({ message: "Login successful"});
+    res.status(200).json({ message: "Login successful", token });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -97,7 +99,11 @@ router.post("/login", async (req, res) => {
 // @route   POST /api/auth/logout
 // @desc    Clear cookies and log out user
 router.post("/logout", (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: cookieOptions.secure,
+    sameSite: cookieOptions.sameSite,
+  });
   res.status(200).json({ message: "Logout successful" });
 });
 

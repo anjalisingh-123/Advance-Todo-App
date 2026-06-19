@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 const Task = require("../models/Task");
 const auth = require("../middleware/authMiddleware");
+
+const isValidObjectId = (id) => mongoose.Types.ObjectId.isValid(id);
 
 // @route   POST /api/tasks
 // @desc    Create a new task for the authenticated user
@@ -37,9 +40,29 @@ router.get("/", auth, async (req, res) => {
 // @desc    Update a task by id (if owned by user)
 router.put("/:id", auth, async (req, res) => {
   try {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({ message: "Invalid task id" });
+    }
+
+    const allowedUpdates = {};
+    if (typeof req.body.title === "string") {
+      const title = req.body.title.trim();
+      if (!title) {
+        return res.status(400).json({ message: "Task title is required" });
+      }
+      allowedUpdates.title = title;
+    }
+    if (typeof req.body.completed === "boolean") {
+      allowedUpdates.completed = req.body.completed;
+    }
+
+    if (Object.keys(allowedUpdates).length === 0) {
+      return res.status(400).json({ message: "No valid fields to update" });
+    }
+
     const updatedTask = await Task.findOneAndUpdate(
       { _id: req.params.id, user: req.user.id },
-      req.body,
+      allowedUpdates,
       { new: true, runValidators: true }
     );
 
@@ -57,6 +80,10 @@ router.put("/:id", auth, async (req, res) => {
 // @desc    Delete a task by id (if owned by user)
 router.delete("/:id", auth, async (req, res) => {
   try {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({ message: "Invalid task id" });
+    }
+
     const deletedTask = await Task.findOneAndDelete({
       _id: req.params.id,
       user: req.user.id

@@ -8,16 +8,21 @@ const taskRoutes = require("./routes/taskRoutes");
 
 const app = express();
 
+const normalizeOrigin = (url) => url?.replace(/\/$/, "");
+
 const allowedOrigins = [
   "https://advance-todo-app-sigma.vercel.app",
   "http://advance-todo-app-sigma.vercel.app",
-  process.env.FRONTEND_URL
+  normalizeOrigin(process.env.FRONTEND_URL)
 ].filter(Boolean);
+
+const localDevOriginPattern = /^https?:\/\/(localhost|127\.0\.0\.1):\d+$/;
 
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
+    const normalizedOrigin = normalizeOrigin(origin);
+    if (allowedOrigins.includes(normalizedOrigin) || localDevOriginPattern.test(normalizedOrigin)) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));

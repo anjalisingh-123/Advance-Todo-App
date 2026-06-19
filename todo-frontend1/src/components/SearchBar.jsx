@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { FaSearch, FaTimes } from 'react-icons/fa';
 import '../styles/SearchBar.css';
 
@@ -29,4 +29,3 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
 };
 
 export default memo(SearchBar);
-
