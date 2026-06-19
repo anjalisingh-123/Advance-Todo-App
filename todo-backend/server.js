@@ -12,7 +12,6 @@ const normalizeOrigin = (url) => url?.replace(/\/$/, "");
 
 const allowedOrigins = [
   "https://advance-todo-app-sigma.vercel.app",
-  "http://advance-todo-app-sigma.vercel.app",
   normalizeOrigin(process.env.FRONTEND_URL)
 ].filter(Boolean);
 
